@@ -3,7 +3,13 @@
 # accompanying file Copyright.txt for details.
 #------------------------------------------------------------------------------#
 
-if(ADIOS2_HAVE_MPI)
+if(ADIOS2_HAVE_MPI)  	
+
+  ## jeff testing only.
+  add_executable(hello_bpWriterJeff helloBPWriterJeff.cpp) 
+  target_link_libraries(hello_bpWriterJeff MPI::MPI_C)
+  target_link_libraries(hello_bpWriterJeff adios2)
+  
   add_executable(hello_bpWriter helloBPWriter.cpp)
   target_link_libraries(hello_bpWriter MPI::MPI_C)
   

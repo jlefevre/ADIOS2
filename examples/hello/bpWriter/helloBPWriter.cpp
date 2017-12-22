@@ -32,6 +32,8 @@ int main(int argc, char *argv[])
     const std::string myString("Hello Variable String from rank " +
                                std::to_string(rank));
 
+    std::cout << "helloBPWriter.cpp..." << rank << std::endl;
+
     try
     {
         /** ADIOS class factory of IO class objects, DebugON is recommended */
