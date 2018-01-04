@@ -43,6 +43,11 @@
 #endif
 #endif
 
+#ifdef ADIOS2_HAVE_CEPH // external dependencies // jpl
+//#include "adios2/engine/ceph/CephFSReader.h"
+#include "adios2/engine/ceph/CephFSWriter.h"
+#endif
+
 namespace adios2
 {
 

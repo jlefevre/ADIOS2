@@ -144,6 +144,16 @@ if(ADIOS2_HAVE_HDF5)
   target_link_libraries(adios2 PRIVATE ${HDF5_C_LIBRARIES})
 endif()
 
+if(ADIOS2_HAVE_CEPH) # jpl
+  #add_subdirectory(toolkit/sst)
+  #add_subdirectory(engine/ceph)
+  target_sources(adios2 PRIVATE
+    #engine/ceph/CephFSReader.cpp engine/ceph/CephFSReader.tcc
+    engine/ceph/CephFSWriter.cpp engine/ceph/CephFSWriter.tcc
+  )
+  target_link_libraries(adios2 PRIVATE ceph)
+endif()
+
 # Set library version information
 set_target_properties(adios2 PROPERTIES
   VERSION ${ADIOS2_VERSION}

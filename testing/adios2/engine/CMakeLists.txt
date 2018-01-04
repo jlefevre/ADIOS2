@@ -23,3 +23,6 @@ if(ADIOS2_HAVE_SST)
   add_subdirectory(sst)
 endif()
 
+if(ADIOS2_HAVE_CEPH) #jpl
+  add_subdirectory(ceph)
+endif()

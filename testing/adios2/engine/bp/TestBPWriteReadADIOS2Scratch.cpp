@@ -14,10 +14,12 @@
 
 #include "../SmallTestData.h"
 
-class BPWriteReadTestADIOS2 : public ::testing::Test
+
+// see: ../source/cmake/upstream/GoogleTest.cmake
+class BPWriteReadTestADIOS2Scratch : public ::testing::Test
 {
 public:
-    BPWriteReadTestADIOS2() = default;
+    BPWriteReadTestADIOS2Scratch() = default;
 
     SmallTestData m_TestData;
 };
@@ -27,11 +29,11 @@ public:
 //******************************************************************************
 
 // ADIOS2 BP write, native ADIOS1 read
-TEST_F(BPWriteReadTestADIOS2, ADIOS2BPWriteRead1D8JEFF)
+TEST_F(BPWriteReadTestADIOS2Scratch, ADIOS2BPWriteRead1D8)
 {
     // Each process would write a 1x8 array and all processes would
     // form a mpiSize * Nx 1D array
-    const std::string fname("ADIOS2BPWriteRead1D8JEFF.bp");
+    const std::string fname("ADIOS2BPWriteRead1D8.bp");
 
     int mpiRank = 0, mpiSize = 1;
     // Number of rows
@@ -85,10 +87,10 @@ TEST_F(BPWriteReadTestADIOS2, ADIOS2BPWriteRead1D8JEFF)
                 io.DefineVariable<double>("r64", shape, start, count);
         }
 
+        // from: engine/bp/TestBPWriteRead.cpp: TEST_F(BPWriteReadTest, ADIOS2BPWriteADIOS1Read1D8)
         // Create the BP Engine
-        io.SetEngine("BPFile");
-
-        io.AddTransport("file");
+       // io.SetEngine("BPFile");
+        //io.AddTransport("file");
 
         // QUESTION: It seems that BPFilterWriter cannot overwrite existing
         // files

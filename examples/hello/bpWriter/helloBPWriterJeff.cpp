@@ -20,7 +20,7 @@
 int main(int argc, char *argv[])
 {
 
-    std::cout << "argc=" << argc << "; argv[1]=" << argv[1] << std::endl;
+    std::cout << "argc=" << argc << "; argv[1]=" << &argv[1] << std::endl;
     MPI_Init(&argc, &argv);
 
     int rank=1, size=1;
@@ -50,9 +50,9 @@ int main(int argc, char *argv[])
         //bpIO.SetParameters({{"Threads", "4"}});
 
     
-       // ??  io.SetEngine("BPFile");
+        bpIO.SetEngine("BPFile");
 
-        // ?? io.AddTransport("file");
+        bpIO.AddTransport("file");
     
         /** global array : name, { shape (total) }, { start (local) }, {
          * count
