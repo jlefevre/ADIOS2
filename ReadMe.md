@@ -56,17 +56,37 @@ $ mkdir build
 
 ```bash
 $ cd build
-$ cmake -DCMAKE_INSTALL_PREFIX=/opt/adios2/2.0.0/gnu/openmpi ../source
--- The C compiler identification is GNU 6.3.1
--- The CXX compiler identification is GNU 6.3.1
-...
+$ make clean;
+$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/adios2 
+  -DADIOS1_DIR=/usr/local/adios1/ 
+  -DADIOS1_USE_STATIC_LIBS=ON 
+  -DADIOS2_USE_ADIOS1=ON 
+  -DADIOS1_LIBRARY=/usr/local/adios1/lib/libadios.a 
+  -DADIOS1_LIBRARY_PATH=/usr/local/adios1/lib/libadios.a 
+  -DADIOS1_INCLUDE_DIR=/usr/local/adios1/include 
+  -DADIOS2_USE_CEPH=ON 
+  -DCEPH_INCLUDE_DIRS=/usr/include/rados ../source;
+        
+-- Could NOT find ZFP (missing: ZFP_LIBRARY ZFP_INCLUDE_DIR)
+-- Found MPI_C: /usr/bin/mpicc (found version "3.1")
+-- Could NOT find ZeroMQ (missing: ZeroMQ_LIBRARY ZeroMQ_INCLUDE_DIR)
+-- Could NOT find PythonModule_numpy (missing: PythonModule_numpy_PATH)
+-- Could NOT find PythonModule_mpi4py (missing: PythonModule_mpi4py_PATH)
+-- Could NOT find PythonFull (missing: numpy mpi4py)
+-- Could NOT find EVPath (missing: EVPath_LIBRARY EVPath_INCLUDE_DIR)
+jpl: source.cmake.detectoptions.cmake detected ADIOS2_USE_CEPH ON, setting (ADIOS2_HAVE_CEPH TRUE)
 
 ADIOS2 build configuration:
-  ADIOS Version: 2.0.0
-  C++ Compiler : GNU 6.3.1
+  ADIOS Version: 2.1.0
+  C++ Compiler : GNU 7.2.0
     /usr/bin/c++
 
-  Installation prefix: /opt/adios2/2.0.0/gnu/openmpi
+  Installation prefix: /usr/local/adios2
+        bin: bin
+        lib: lib
+    include: include
+      cmake: lib/cmake/adios2
+
   Features:
     Library Type: shared
     Build Type:   Debug
@@ -76,17 +96,19 @@ ADIOS2 build configuration:
       ZFP      : OFF
       MPI      : ON
       DataMan  : ON
-      ZeroMQ   : ON
-      HDF5     : ON
-      ADIOS1   : OFF
-      Python   : ON
-      C        : ON
+      SST      : OFF
+      ZeroMQ   : OFF
+      HDF5     : OFF
+      ADIOS1   : ON
+      Python   : OFF
+      Fortran  : OFF
       SysVShMem: ON
+      CEPH     : ON
 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/chuck/Code/adios2/build
-$
+-- Build files have been written to: /src/adios2/build
+
 ```
 
 The following options can be specified with CMake's `-DVAR=VALUE` syntax to control which features get enabled or disabled:
@@ -102,6 +124,7 @@ The following options can be specified with CMake's `-DVAR=VALUE` syntax to cont
 | `ADIOS2_USE_ADIOS1`  | **`AUTO`**/``ON``/``OFF`` | Enable the [ADIOS 1.x](https://www.olcf.ornl.gov/center-projects/adios/) engine. |
 | `ADIOS2_USE_Python`  | **`AUTO`**/``ON``/``OFF`` | Enable the Python >= 2.7 bindings. |
 | `ADIOS2_USE_C`       | **`AUTO`**/``ON``/``OFF`` | Enable the C bindings library libadios2_c.so or libadios2_c.a |
+| `ADIOS2_USE_CEPH`    | **`AUTO`**/``ON``/``OFF`` | Enable the [Ceph](http://www.ceph.com) engine. |
 
 Note: The `ADIOS2_USE_HDF5` and `ADIOS2_USE_ADIOS1` options require the use of a matching serial or parallel version depending on whether `ADIOS2_USE_MPI` is enabled.  SImilary, enabling MPI and Python bindings requires the presence of `mpi4py`.
 
@@ -125,36 +148,69 @@ $ make -j8
 5. Run tests:
 
 ```bash
-$ ctest
-Test project /home/chuck/Code/adios2/build
-      Start  1: ADIOSInterfaceWriteTest.DefineVarChar1x10
- 1/31 Test  #1: ADIOSInterfaceWriteTest.DefineVarChar1x10 ..............   Passed    0.00 sec
-      Start  2: ADIOSInterfaceWriteTest.DefineVarShort1x10
- 2/31 Test  #2: ADIOSInterfaceWriteTest.DefineVarShort1x10 .............   Passed    0.00 sec
-...
-      Start 21: HDF5WriteReadTest.ADIOS2HDF5WriteHDF5Read1D8
-21/31 Test #21: HDF5WriteReadTest.ADIOS2HDF5WriteHDF5Read1D8 ...........   Passed    0.01 sec
-      Start 22: HDF5WriteReadTest.ADIOS2HDF5WriteADIOS2HDF5Read1D8
-22/31 Test #22: HDF5WriteReadTest.ADIOS2HDF5WriteADIOS2HDF5Read1D8 .....***Not Run (Disabled)   0.00 sec
-      Start 23: HDF5WriteReadTest.HDF5WriteADIOS2HDF5Read1D8
-23/31 Test #23: HDF5WriteReadTest.HDF5WriteADIOS2HDF5Read1D8 ...........***Not Run (Disabled)   0.00 sec
-...
-      Start 30: PythonBPWrite
-30/31 Test #30: PythonBPWrite ..........................................   Passed    0.12 sec
-      Start 31: XMLConfigTest.TwoIOs
-31/31 Test #31: XMLConfigTest.TwoIOs ...................................   Passed    0.01 sec
+$ sirius@a7abe61a96db:/src/adios2/build$ ctest --extra-verbose --output-log ctest.log --tests-regex .jeff
+UpdateCTestConfiguration  from :/src/adios2/build/DartConfiguration.tcl
+Parse Config file:/src/adios2/build/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/src/adios2/build/DartConfiguration.tcl
+Parse Config file:/src/adios2/build/DartConfiguration.tcl
+Test project /src/adios2/build
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 43
+    Start 43: BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8.jeff
 
-100% tests passed, 0 tests failed out of 25
+43: Test command: /usr/bin/mpiexec "-n" "2" "/src/adios2/build/bin/TestBPWriteReadADIOS2Scratch" "--gtest_filter=BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8"
+43: Test timeout computed to be: 1500
+43: Note: Google Test filter = BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8
+43: [==========] Running 1 test from 1 test case.
+43: [----------] Global test environment set-up.
+43: [----------] 1 test from BPWriteReadTestADIOS2Scratch
+43: [ RUN      ] BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8
+43: Note: Google Test filter = BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8
+43: [==========] Running 1 test from 1 test case.
+43: [----------] Global test environment set-up.
+43: [----------] 1 test from BPWriteReadTestADIOS2Scratch
+43: [ RUN      ] BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8
+43: [       OK ] BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8 (39 ms)
+43: [----------] 1 test from BPWriteReadTestADIOS2Scratch (40 ms total)
+43:
+43: [----------] Global test environment tear-down
+43: [==========] 1 test from 1 test case ran. (44 ms total)
+43: [  PASSED  ] 1 test.
+43: [       OK ] BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8 (44 ms)
+43: [----------] 1 test from BPWriteReadTestADIOS2Scratch (44 ms total)
+43:
+43: [----------] Global test environment tear-down
+43: [==========] 1 test from 1 test case ran. (44 ms total)
+43: [  PASSED  ] 1 test.
+1/2 Test #43: BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8.jeff ...   Passed    0.39 sec
+test 44
+    Start 44: BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8.jeff
 
-Total Test time (real) =   0.29 sec
+44: Test command: /usr/bin/mpiexec "-n" "2" "/src/adios2/build/bin/TestBPWriteReadADIOS2Scratch" "--gtest_filter=BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8"
+44: Test timeout computed to be: 1500
+44: Note: Google Test filter = BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8
+44: [==========] Running 0 tests from 0 test cases.
+44: Note: Google Test filter = BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8
+44: [==========] Running 0 tests from 0 test cases.
+44: [==========] 0 tests from 0 test cases ran. (0 ms total)
+44: [  PASSED  ] 0 tests.
+44: [==========] 0 tests from 0 test cases ran. (0 ms total)
+44: [  PASSED  ] 0 tests.
+2/2 Test #44: BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8.jeff ..........   Passed    0.25 sec
 
-The following tests did not run:
-	 22 - HDF5WriteReadTest.ADIOS2HDF5WriteADIOS2HDF5Read1D8 (Disabled)
-	 23 - HDF5WriteReadTest.HDF5WriteADIOS2HDF5Read1D8 (Disabled)
-	 25 - HDF5WriteReadTest.ADIOS2HDF5WriteADIOS2HDF5Read2D2x4 (Disabled)
-	 26 - HDF5WriteReadTest.HDF5WriteADIOS2HDF5Read2D2x4 (Disabled)
-	 28 - HDF5WriteReadTest.ADIOS2HDF5WriteADIOS2HDF5Read2D4x2 (Disabled)
-	 29 - HDF5WriteReadTest.HDF5WriteADIOS2HDF5Read2D4x2 (Disabled)
+The following tests passed:
+	BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8.jeff
+	BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8.jeff
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   1.01 sec
+sirius@a7abe61a96db:/src/adios2/build$
 $
 ```
 
