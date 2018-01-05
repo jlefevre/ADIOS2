@@ -145,13 +145,22 @@ if(ADIOS2_HAVE_HDF5)
 endif()
 
 if(ADIOS2_HAVE_CEPH) # jpl
-  #add_subdirectory(toolkit/sst)
-  #add_subdirectory(engine/ceph)
+
+  target_include_directories(adios2 PRIVATE ${CEPH_INCLUDE_DIRS})
+
   target_sources(adios2 PRIVATE
+    
+    # todo: implement the CephFS reader.
     #engine/ceph/CephFSReader.cpp engine/ceph/CephFSReader.tcc
+
     engine/ceph/CephFSWriter.cpp engine/ceph/CephFSWriter.tcc
+
+    # todo: implement the Ceph interop common code
+    #toolkit/interop/ceph/CephCommon.cpp toolkit/interop/ceph/CephCommon.tcc
   )
-  target_link_libraries(adios2 PRIVATE ceph)
+
+  # todo: add the Ceph libraries to link as needed
+  #target_link_libraries(adios2 PRIVATE ${CEPH_LIBRARIES}) 
 endif()
 
 # Set library version information

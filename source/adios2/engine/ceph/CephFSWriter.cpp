@@ -19,6 +19,12 @@
 #include "adios2/helper/adiosFunctions.h" //CheckIndexRange
 #include "adios2/toolkit/transport/file/FileFStream.h"
 
+// jpl
+
+#include "adios2/engine/bp/BPFileWriter.h"
+#include "adios2/engine/bp/BPFileWriter.tcc"
+
+
 namespace adios2
 {
 
@@ -35,7 +41,7 @@ CephFSWriter::CephFSWriter(IO &io, const std::string &name, const Mode mode,
 
 CephFSWriter::~CephFSWriter() = default;
 
-StepStatus BPFileWriter::BeginStep(StepMode mode, const float timeoutSeconds)
+StepStatus CephFSWriter::BeginStep(StepMode mode, const float timeoutSeconds)
 {
     m_BP3Serializer.m_DeferredVariables.clear();
     m_BP3Serializer.m_DeferredVariablesDataSize = 0;
@@ -55,7 +61,7 @@ void CephFSWriter::PerformPuts()
     m_BP3Serializer.m_DeferredVariables.clear();
 }
 
-void BPFileWriter::EndStep()
+void CephFSWriter::EndStep()
 {
     if (m_BP3Serializer.m_DeferredVariables.size() > 0)
     {

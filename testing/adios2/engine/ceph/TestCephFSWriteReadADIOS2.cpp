@@ -29,7 +29,7 @@ public:
 //******************************************************************************
 
 // ADIOS2 BP write, native ADIOS1 read
-TEST_F(CephFSWriteReadTestADIOS2Scratch, ADIOS2CephFSWriteRead1D8)
+TEST_F(CephFSWriteReadTestADIOS2, ADIOS2CephFSWriteRead1D8)
 {
     // Each process would write a 1x8 array and all processes would
     // form a mpiSize * Nx 1D array

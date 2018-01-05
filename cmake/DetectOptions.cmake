@@ -157,19 +157,19 @@ find_package(Threads REQUIRED)
 
 # Ceph # jpl forced.
 if(ADIOS2_USE_CEPH STREQUAL AUTO)
-	message("jpl: source.cmake.detectoptions.cmake ADIOS2_USE_CEPH AUTO, set(ADIOS2_HAVE_CEPH FALSE)")
+	message("jpl: source.cmake.detectoptions.cmake detected ADIOS2_USE_CEPH AUTO, setting (ADIOS2_HAVE_CEPH FALSE)")
   set(ADIOS2_HAVE_CEPH FALSE)
 endif()
 
 # Ceph # jpl forced.
 if(ADIOS2_USE_CEPH STREQUAL OFF)
-	message("jpl: source.cmake.detectoptions.cmake ADIOS2_USE_CEPH OFF, set(ADIOS2_HAVE_CEPH FALSE)")
+	message("jpl: source.cmake.detectoptions.cmake detected ADIOS2_USE_CEPH OFF, setting (ADIOS2_HAVE_CEPH FALSE)")
   set(ADIOS2_HAVE_CEPH FALSE)
 endif()
 
 # Ceph # jpl forced.
 if(ADIOS2_USE_CEPH STREQUAL ON)
-  message("jpl: source.cmake.detectoptions.cmake ADIOS2_USE_CEPH ON, set(ADIOS2_HAVE_CEPH TRUE)")
+  message("jpl: source.cmake.detectoptions.cmake detected ADIOS2_USE_CEPH ON, setting (ADIOS2_HAVE_CEPH TRUE)")
   set(ADIOS2_HAVE_CEPH TRUE)
 endif()
 
