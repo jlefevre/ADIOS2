@@ -153,7 +153,7 @@ if(ADIOS2_HAVE_CEPH) # jpl
     # todo: implement the CephFS reader.
     #engine/ceph/CephFSReader.cpp engine/ceph/CephFSReader.tcc
 
-    engine/ceph/CephFSWriter.cpp engine/ceph/CephFSWriter.tcc
+    engine/ceph/CephWriter.cpp engine/ceph/CephWriter.tcc
 
     # todo: implement the Ceph interop common code
     #toolkit/interop/ceph/CephCommon.cpp toolkit/interop/ceph/CephCommon.tcc

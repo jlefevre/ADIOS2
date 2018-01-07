@@ -16,10 +16,10 @@
 
 
 // see: ../source/cmake/upstream/GoogleTest.cmake
-class CephFSWriteReadTestADIOS2 : public ::testing::Test
+class CephWriteReadTestADIOS2 : public ::testing::Test
 {
 public:
-    CephFSWriteReadTestADIOS2() = default;
+    CephWriteReadTestADIOS2() = default;
 
     SmallTestData m_TestData;
 };
@@ -29,11 +29,11 @@ public:
 //******************************************************************************
 
 // ADIOS2 BP write, native ADIOS1 read
-TEST_F(CephFSWriteReadTestADIOS2, ADIOS2CephFSWriteRead1D8)
+TEST_F(CephWriteReadTestADIOS2, ADIOS2CephWriteRead1D8)
 {
     // Each process would write a 1x8 array and all processes would
     // form a mpiSize * Nx 1D array
-    const std::string fname("ADIOS2CephFSWriteRead1D8.bp");
+    const std::string fname("ADIOS2CephWriteRead1D8.bp");
 
     int mpiRank = 0, mpiSize = 1;
     // Number of rows

@@ -7,16 +7,16 @@
  *  Created on: Dec 17, 2017
  *      Author: jpl
  */
-#ifndef ADIOS2_ENGINE_CEPH_CEPHFSWRITER_TCC_
-#define ADIOS2_ENGINE_CEPH_CEPHFSWRITER_TCC_
+#ifndef ADIOS2_ENGINE_CEPH_CEPHWRITER_TCC_
+#define ADIOS2_ENGINE_CEPH_CEPHWRITER_TCC_
 
-#include "CephFSWriter.h"
+#include "CephWriter.h"
 
 namespace adios2
 {
 
 template <class T>
-void CephFSWriter::PutSyncCommon(Variable<T> &variable, const T *values)
+void CephWriter::PutSyncCommon(Variable<T> &variable, const T *values)
 {
     // set variable
     variable.SetData(values);
@@ -51,7 +51,7 @@ void CephFSWriter::PutSyncCommon(Variable<T> &variable, const T *values)
 }
 
 template <class T>
-void CephFSWriter::PutDeferredCommon(Variable<T> &variable, const T *values)
+void CephWriter::PutDeferredCommon(Variable<T> &variable, const T *values)
 {
     variable.SetData(values);
     m_BP3Serializer.m_DeferredVariables.push_back(variable.m_Name);
@@ -63,4 +63,4 @@ void CephFSWriter::PutDeferredCommon(Variable<T> &variable, const T *values)
 
 } // end namespace adios2
 
-#endif /* ADIOS2_ENGINE_CEPH_CEPHFSWRITER_TCC_ */
+#endif /* ADIOS2_ENGINE_CEPH_CEPHWRITER_TCC_ */
