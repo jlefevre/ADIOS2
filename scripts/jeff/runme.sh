@@ -15,5 +15,5 @@ sleep 1
 make -j6
 echo "running ctest.."
 sleep 1
-#ctest --extra-verbose --output-log ctest.log --show-only --tests-regex .jeff
-ctest --extra-verbose --output-log ctest.log --tests-regex .jeff
+#ctest --extra-verbose --output-log ctest.log --show-only --tests-regex .ceph
+ctest --extra-verbose --output-log ctest.log --tests-regex .cegh
