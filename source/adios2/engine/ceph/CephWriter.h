@@ -15,6 +15,7 @@
 #include "adios2/core/Engine.h"
 #include "adios2/toolkit/format/bp3/BP3.h"
 #include "adios2/toolkit/transportman/TransportMan.h" //transport::TransportsMan
+#include "adios2/toolkit/interop/ceph/CephCommon.h"
 
 namespace adios2
 {

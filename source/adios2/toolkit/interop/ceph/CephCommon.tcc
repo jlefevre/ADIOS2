@@ -45,8 +45,8 @@ void CephCommon::Write(Variable<T> &variable, const T *values)
         //~ }
     //~ }
 
-    const ceph_t EMPRESSFUNC = 0;
-    ceph_t objset = EMPRESSFUNC;
+    cephstorage_t EMPRESSFUNC = E_CEPH_OBJ;
+    cephid_t objset = EMPRESSFUNC;
     cephid_t dsetID = objset; // H5Dcreate(m_GroupId, variable.m_Name.c_str(), h5Type, fileSpace, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 
     //~ //  Create property list for collective dataset write.
@@ -60,22 +60,25 @@ void CephCommon::Write(Variable<T> &variable, const T *values)
 
 }
 
+
+
 template <>
-int CephCommon::GetCephType<std::string>()
+cephtype_t CephCommon::GetCephType<std::string>()
 {
     return CEPH_STRING;
 }
 template <>
-int CephCommon::GetCephType<std::int>()
+cephtype_t CephCommon::GetCephType<int>()
 {
     return CEPH_INT;
 }
 template <>
-int CephCommon::GetCephType<std::float>()
+cephtype_t CephCommon::GetCephType<float>()
 {
     return CEPH_STRING;
-}template <>
-int CephCommon::GetCephType<std::double>()
+}
+template <>
+cephtype_t CephCommon::GetCephType<double>()
 {
     return CEPH_DOUBLE;
 }
@@ -83,4 +86,4 @@ int CephCommon::GetCephType<std::double>()
 } // end namespace interop
 } // end namespace adios
 
-#endif /* ADIOS2_TOOLKIT_INTEROP_CEPH_CEPHCOMMON_H_ */
+#endif /* ADIOS2_TOOLKIT_INTEROP_CEPH_CEPHCOMMON_TCC_ */

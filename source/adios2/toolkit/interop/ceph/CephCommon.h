@@ -11,8 +11,6 @@
 #ifndef ADIOS2_TOOLKIT_INTEROP_CEPH_CEPHCOMMON_H_
 #define ADIOS2_TOOLKIT_INTEROP_CEPH_CEPHCOMMON_H_
 
-//#include <hdf5.h>
-
 #include <string>
 
 #include "adios2/ADIOSMPICommOnly.h"
@@ -33,19 +31,19 @@ typedef enum {
     E_CEPH_OBJ = 1,
 } ADIOS_ENUM_CEPH_STORAGE;
 
-typdef ADIOS_ENUM_CEPH_STORAGE cephstorage_t;
+typedef ADIOS_ENUM_CEPH_STORAGE cephstorage_t;
 
-typdef unsigned int cephid_t;
-typdef unsigned int cephsz_t;
-typdef unsigned int cephtype_t;
+typedef unsigned int cephid_t;
+typedef unsigned int cephsz_t;
+typedef unsigned int cephtype_t;
 
 // for testing only.
-const cephtype_t CEPH_STRING = 0,
-const cephtype_t CEPH_INT = 1,
-const cephtype_t CEPH_FLOAT = 2,
-const cephtype_t CEPH_DOUBLE = 3,
+const cephtype_t CEPH_STRING = 0;
+const cephtype_t CEPH_INT = 1;
+const cephtype_t CEPH_FLOAT = 2;
+const cephtype_t CEPH_DOUBLE = 3;
 
-class CephFSCommon
+class CephCommon
 {
 
 public:
@@ -53,7 +51,7 @@ public:
      * Unique constructor for Ceph objs
      * @param debugMode true: extra exception checks
      */
-    CephFSCommon(const bool debugMode);
+    CephCommon(const bool debugMode);
 
     void Init(const std::string &name, MPI_Comm comm, bool toWrite);
 
@@ -68,7 +66,9 @@ public:
     unsigned int GetNumTimeSteps();
     void WriteTimeSteps();
     void CreateVar(IO &io, cephtype_t cephType, std::string const &name);
-
+    void ReadVariables(unsigned int ts, IO &io);
+    void ReadAllVariables(IO &io);
+    
     template <class T>
     void AddVar(IO &io, std::string const &name, cephid_t datasetId);
 
@@ -94,7 +94,7 @@ private:
 
 // Explicit declaration of the public template methods
 #define declare_template_instantiation(T)                                      \
-    extern template void CephFSCommon::Write(Variable<T> &variable,              \
+    extern template void CephCommon::Write(Variable<T> &variable,              \
                                            const T *value);
 
 ADIOS2_FOREACH_TYPE_1ARG(declare_template_instantiation)

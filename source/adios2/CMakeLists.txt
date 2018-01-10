@@ -146,21 +146,29 @@ endif()
 
 if(ADIOS2_HAVE_CEPH) # jpl
 
-  target_include_directories(adios2 PRIVATE ${CEPH_INCLUDE_DIRS})
+	target_include_directories(adios2 PRIVATE ${CEPH_INCLUDE_DIRS})
 
-  target_sources(adios2 PRIVATE
-    
-    # todo: implement the CephFS reader.
-    #engine/ceph/CephFSReader.cpp engine/ceph/CephFSReader.tcc
+	#   add_library(ceph 
+	#engine/ceph/CephWriter.cpp engine/ceph/CephWriter.tcc
+	#toolkit/interop/ceph/CephCommon.cpp toolkit/interop/ceph/CephCommon.tcc
+	#)	  
 
-    engine/ceph/CephWriter.cpp engine/ceph/CephWriter.tcc
+	# either 
+	# 1. use the cmakelists.txt in the interop/deph dir declaring a lib called ceph (like sst)
+ 	# add_subdirectory(toolkit/interop/ceph)  # requires in cmakelists.txt: add_library(ceph CephCommon.cpp CephCommon.tcc)
+ 	#target_link_libraries(adios2 PRIVATE ceph)  
 
-    # todo: implement the Ceph interop common code
-    #toolkit/interop/ceph/CephCommon.cpp toolkit/interop/ceph/CephCommon.tcc
-  )
-
-  # todo: add the Ceph libraries to link as needed
-  #target_link_libraries(adios2 PRIVATE ${CEPH_LIBRARIES}) 
+	# 2. add all ceph engine and interop files to target sources.
+	target_sources(adios2 PRIVATE
+    		engine/ceph/CephWriter.cpp engine/ceph/CephWriter.tcc
+		#toolkit/interop/ceph/CephCommon.cpp 
+		#toolkit/interop/ceph/CephCommon.tcc
+  	)
+  
+  	# todo: add the Ceph libraries to link as needed
+  	# find / -name librados*
+	#target_link_libraries(adios2 PRIVATE ${CEPH_LIBRARIES})
+	#target_link_libraries(adios2 PRIVATE cephjeff)
 endif()
 
 # Set library version information

@@ -56,7 +56,7 @@ void CephCommon::Init(const std::string &name, MPI_Comm comm, bool toWrite)
     }
 }
 
-void CephFSCommon::WriteTimeSteps()
+void CephCommon::WriteTimeSteps()
 {
     uint totalTimeSteps = m_CurrentTimeStep + 1;
     if (m_DebugMode) { std::cout << "CephFSCommon WriteTimeSteps: totalTimeSteps=" << totalTimeSteps << std::endl;}
@@ -73,7 +73,7 @@ unsigned int CephCommon::GetNumTimeSteps()
 }
 
 // read from all time steps
-void CephFSCommon::ReadAllVariables(IO &io)
+void CephCommon::ReadAllVariables(IO &io)
 {
     int i = 0;
     std::string timestepStr;
@@ -87,23 +87,25 @@ void CephFSCommon::ReadAllVariables(IO &io)
 }
 
 // read variables from the input timestep
-void CephFSCommon::ReadVariables(unsigned int ts, IO &io)
+void CephCommon::ReadVariables(unsigned int ts, IO &io)
 {
     std::string timestepStr;
     StaticGetTimeStepString(timestepStr, ts);
     if (m_DebugMode) { std::cout << "CephFSCommon ReadVariables: timestepStr=" << timestepStr << std::endl;}
 }
 
+void CephCommon::CreateVar(IO &io, cephid_t datasetId, std::string const &name)
+{
+    if (m_DebugMode) {std::cout << "CephCommon CreateVar(): name=" << name << std::endl;}
+}
+
+
 template <class T>
-void CephCommon::AddVar(IO &io, std::string const &name, m_cephid datasetId)
+void CephCommon::AddVar(IO &io, std::string const &name, cephid_t datasetId)
 {
     if (m_DebugMode) {std::cout << "CephCommon AddVar(): name=" << name << std::endl;}
 }
 
-void CephCommon::CreateVar(IO &io, m_cephid datasetId, std::string const &name)
-{
-    if (m_DebugMode) {std::cout << "CephCommon CreateVar(): name=" << name << std::endl;}
-}
 
 void CephCommon::Close()
 {
@@ -180,7 +182,6 @@ void CephCommon::Advance()
 void CephCommon::StaticGetTimeStepString(std::string &timeStepName, int ts)
 {
     timeStepName = "/TimeStep" + std::to_string(ts);
-    if (m_DebugMode) {std::cout << "CephCommon StaticGetTimeStepString()=" << timeStepName <<std::endl;}
 }
 
 #define declare_template_instantiation(T)                                      \
