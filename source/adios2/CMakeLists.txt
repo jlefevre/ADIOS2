@@ -167,8 +167,8 @@ if(ADIOS2_HAVE_CEPH) # jpl
   
   	# todo: add the Ceph libraries to link as needed
   	# find / -name librados*
-	#target_link_libraries(adios2 PRIVATE ${CEPH_LIBRARIES})
-	#target_link_libraries(adios2 PRIVATE cephjeff)
+	target_link_libraries(adios2 PRIVATE ${CEPH_LIBRARIES})
+	#target_link_libraries(adios2 PRIVATE rados)
 endif()
 
 # Set library version information
