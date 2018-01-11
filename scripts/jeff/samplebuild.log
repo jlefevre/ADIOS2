@@ -1,0 +1,442 @@
+-- The C compiler identification is GNU 7.2.0
+-- The CXX compiler identification is GNU 7.2.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found BZip2: /usr/lib/libbz2.so (found version "1.0.6")
+-- Looking for BZ2_bzCompressInit
+-- Looking for BZ2_bzCompressInit - found
+-- Could NOT find ZFP (missing: ZFP_LIBRARY ZFP_INCLUDE_DIR)
+-- Found MPI_C: /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so (found version "3.1")
+-- Found MPI: TRUE (found version "3.1") found components:  C
+-- Could NOT find ZeroMQ (missing: ZeroMQ_LIBRARY ZeroMQ_INCLUDE_DIR)
+-- Found HDF5: /usr/local/hdf5/HDF_Group/HDF5/1.8.20/lib/libhdf5.a (found version "1.8.20") found components:  C
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Looking for pthread_create
+-- Looking for pthread_create - not found
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE
+-- Found ADIOS1: /usr/local/adios1/lib/libadios.a (found suitable version "1.12.0", minimum required is "1.12.0")
+-- Found PythonInterp: /usr/bin/python3 (found version "3.6.3")
+-- Found PythonLibs: python3.6m
+-- Could NOT find PythonModule_numpy (missing: PythonModule_numpy_PATH)
+-- Could NOT find PythonModule_mpi4py (missing: PythonModule_mpi4py_PATH)
+-- Could NOT find PythonFull (missing: numpy mpi4py)
+-- Could NOT find EVPath (missing: EVPath_LIBRARY EVPath_INCLUDE_DIR)
+-- Looking for shmget
+-- Looking for shmget - found
+jpl: source.cmake.detectoptions.cmake detected ADIOS2_USE_CEPH ON, setting (ADIOS2_HAVE_CEPH TRUE)
+-- Checking whether header cstdio is available
+-- Checking whether header cstdio is available - yes
+-- Checking for Large File Support
+-- Checking for Large File Support - yes
+-- Checking whether C++ compiler has 'long long'
+-- Checking whether C++ compiler has 'long long' - yes
+-- Checking whether C++ compiler has '__int64'
+-- Checking whether C++ compiler has '__int64' - no
+-- Checking whether wstring is available
+-- Checking whether wstring is available - yes
+-- Checking whether C compiler has ptrdiff_t in stddef.h
+-- Checking whether C compiler has ptrdiff_t in stddef.h - yes
+-- Checking whether C compiler has ssize_t in unistd.h
+-- Checking whether C compiler has ssize_t in unistd.h - yes
+-- Checking whether CXX compiler has setenv
+-- Checking whether CXX compiler has setenv - yes
+-- Checking whether CXX compiler has unsetenv
+-- Checking whether CXX compiler has unsetenv - yes
+-- Checking whether CXX compiler has environ in stdlib.h
+-- Checking whether CXX compiler has environ in stdlib.h - no
+-- Checking whether CXX compiler has utimes
+-- Checking whether CXX compiler has utimes - yes
+-- Checking whether CXX compiler has utimensat
+-- Checking whether CXX compiler has utimensat - yes
+-- Checking whether CXX compiler struct stat has st_mtim member
+-- Checking whether CXX compiler struct stat has st_mtim member - yes
+-- Checking whether CXX compiler struct stat has st_mtimespec member
+-- Checking whether CXX compiler struct stat has st_mtimespec member - no
+-- Checking whether <ext/stdio_filebuf.h> is available
+-- Checking whether <ext/stdio_filebuf.h> is available - yes
+
+ADIOS2 build configuration:
+  ADIOS Version: 2.1.0
+  C++ Compiler : GNU 7.2.0
+    /usr/bin/c++
+
+  Installation prefix: /usr/local/adios2
+        bin: bin
+        lib: lib
+    include: include
+      cmake: lib/cmake/adios2
+
+  Features:
+    Library Type: shared
+    Build Type:   Debug
+    Testing: ON
+    Build Options:
+      BZip2    : ON
+      ZFP      : OFF
+      MPI      : ON
+      DataMan  : ON
+      SST      : OFF
+      ZeroMQ   : OFF
+      HDF5     : OFF
+      ADIOS1   : ON
+      Python   : OFF
+      Fortran  : OFF
+      SysVShMem: ON
+      CEPH     : ON
+
+-- Configuring done
+-- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    ADIOS1_DIR
+    ADIOS1_LIBRARY_PATH
+    ADIOS1_USE_STATIC_LIBS
+
+
+-- Build files have been written to: /src/adios2/build
+running make...
+Scanning dependencies of target heatTransfer_read_fileonly_adios1
+Scanning dependencies of target heatTransfer_write_ascii
+Scanning dependencies of target gtest
+Scanning dependencies of target heatTransfer_write_adios1.x
+Scanning dependencies of target adios2sys_objects
+[  1%] Building CXX object examples/heatTransfer/read_fileonly/CMakeFiles/heatTransfer_read_fileonly_adios1.dir/heatRead_adios1.cpp.o
+[  2%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_ascii.dir/main.cpp.o
+[  3%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_ascii.dir/HeatTransfer.cpp.o
+[  4%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_adios1.x.dir/main.cpp.o
+[  5%] Building C object thirdparty/KWSys/adios2sys/CMakeFiles/adios2sys_objects.dir/EncodingC.c.o
+[  5%] Building CXX object thirdparty/GTest/googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+[  5%] Building CXX object thirdparty/KWSys/adios2sys/CMakeFiles/adios2sys_objects.dir/Directory.cxx.o
+[  5%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_ascii.dir/Settings.cpp.o
+[  5%] Linking CXX executable ../../../bin/heatTransfer_read_fileonly_adios1
+[  6%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_adios1.x.dir/HeatTransfer.cpp.o
+[  7%] Building CXX object thirdparty/KWSys/adios2sys/CMakeFiles/adios2sys_objects.dir/DynamicLoader.cxx.o
+[  8%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_ascii.dir/IO_ascii.cpp.o
+[  8%] Built target heatTransfer_read_fileonly_adios1
+[  8%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_adios1.x.dir/Settings.cpp.o
+[  9%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_adios1.x.dir/IO_adios1.x.cpp.o
+[ 10%] Building CXX object thirdparty/KWSys/adios2sys/CMakeFiles/adios2sys_objects.dir/EncodingCXX.cxx.o
+[ 10%] Building CXX object thirdparty/KWSys/adios2sys/CMakeFiles/adios2sys_objects.dir/RegularExpression.cxx.o
+[ 11%] Building CXX object thirdparty/KWSys/adios2sys/CMakeFiles/adios2sys_objects.dir/SystemTools.cxx.o
+[ 11%] Linking CXX executable ../../../bin/heatTransfer_write_ascii
+[ 11%] Linking CXX executable ../../../bin/heatTransfer_write_adios1.x
+[ 11%] Building CXX object thirdparty/KWSys/adios2sys/CMakeFiles/adios2sys_objects.dir/FStream.cxx.o
+[ 11%] Built target heatTransfer_write_ascii
+[ 11%] Built target heatTransfer_write_adios1.x
+[ 11%] Built target adios2sys_objects
+Scanning dependencies of target adios2
+[ 12%] Linking CXX shared library ../../../../lib/libgtest.so
+[ 12%] Built target gtest
+Scanning dependencies of target gtest_main
+[ 13%] Building CXX object thirdparty/GTest/googletest/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
+[ 13%] Linking CXX shared library ../../../../lib/libgtest_main.so
+[ 13%] Built target gtest_main
+[ 13%] Building CXX object source/adios2/CMakeFiles/adios2.dir/core/AttributeBase.cpp.o
+[ 14%] Building CXX object source/adios2/CMakeFiles/adios2.dir/core/Attribute.cpp.o
+[ 15%] Building CXX object source/adios2/CMakeFiles/adios2.dir/core/ADIOS.cpp.o
+[ 15%] Building CXX object source/adios2/CMakeFiles/adios2.dir/core/Engine.cpp.o
+[ 16%] Building CXX object source/adios2/CMakeFiles/adios2.dir/core/Operator.cpp.o
+[ 17%] Building CXX object source/adios2/CMakeFiles/adios2.dir/core/IO.cpp.o
+[ 17%] Building CXX object source/adios2/CMakeFiles/adios2.dir/core/Variable.cpp.o
+[ 18%] Building CXX object source/adios2/CMakeFiles/adios2.dir/core/VariableBase.cpp.o
+[ 18%] Building CXX object source/adios2/CMakeFiles/adios2.dir/core/VariableCompound.cpp.o
+[ 19%] Building CXX object source/adios2/CMakeFiles/adios2.dir/operator/callback/Signature1.cpp.o
+[ 20%] Building CXX object source/adios2/CMakeFiles/adios2.dir/operator/callback/Signature2.cpp.o
+[ 20%] Building CXX object source/adios2/CMakeFiles/adios2.dir/helper/adiosDynamicBinder.cpp.o
+[ 21%] Building CXX object source/adios2/CMakeFiles/adios2.dir/helper/adiosMath.cpp.o
+[ 21%] Building CXX object source/adios2/CMakeFiles/adios2.dir/helper/adiosMPIFunctions.cpp.o
+[ 22%] Building CXX object source/adios2/CMakeFiles/adios2.dir/helper/adiosString.cpp.o
+[ 23%] Building CXX object source/adios2/CMakeFiles/adios2.dir/helper/adiosSystem.cpp.o
+[ 23%] Building CXX object source/adios2/CMakeFiles/adios2.dir/helper/adiosType.cpp.o
+[ 24%] Building CXX object source/adios2/CMakeFiles/adios2.dir/helper/adiosXML.cpp.o
+[ 24%] Building CXX object source/adios2/CMakeFiles/adios2.dir/engine/bp/BPFileReader.cpp.o
+[ 25%] Building CXX object source/adios2/CMakeFiles/adios2.dir/engine/bp/BPFileWriter.cpp.o
+[ 26%] Building CXX object source/adios2/CMakeFiles/adios2.dir/engine/plugin/PluginEngine.cpp.o
+[ 26%] Building CXX object source/adios2/CMakeFiles/adios2.dir/engine/plugin/PluginEngineInterface.cpp.o
+[ 27%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/format/BufferSTL.cpp.o
+[ 27%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/format/bp3/BP3Base.cpp.o
+[ 28%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/format/bp3/BP3Serializer.cpp.o
+[ 29%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/format/bp3/BP3Deserializer.cpp.o
+[ 29%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/profiling/iochrono/Timer.cpp.o
+[ 30%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/transport/Transport.cpp.o
+[ 30%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/transport/file/FileStdio.cpp.o
+[ 31%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/transport/file/FileFStream.cpp.o
+[ 32%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/transportman/TransportMan.cpp.o
+[ 32%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/transportman/dataman/DataMan.cpp.o
+[ 32%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/transport/shm/ShmSystemV.cpp.o
+[ 33%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/transport/file/FilePOSIX.cpp.o
+[ 34%] Building CXX object source/adios2/CMakeFiles/adios2.dir/engine/dataman/DataManReader.cpp.o
+[ 35%] Building CXX object source/adios2/CMakeFiles/adios2.dir/engine/dataman/DataManWriter.cpp.o
+[ 35%] Building CXX object source/adios2/CMakeFiles/adios2.dir/operator/compress/CompressBZip2.cpp.o
+[ 36%] Building CXX object source/adios2/CMakeFiles/adios2.dir/engine/adios1/ADIOS1Reader.cpp.o
+[ 36%] Building CXX object source/adios2/CMakeFiles/adios2.dir/engine/adios1/ADIOS1Writer.cpp.o
+[ 37%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/interop/adios1/ADIOS1Common.cpp.o
+[ 38%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/interop/adios1/ADIOS1CommonWrite.cpp.o
+[ 38%] Building CXX object source/adios2/CMakeFiles/adios2.dir/toolkit/interop/adios1/ADIOS1CommonRead.cpp.o
+[ 39%] Building CXX object source/adios2/CMakeFiles/adios2.dir/engine/ceph/CephWriter.cpp.o
+[ 39%] Building CXX object source/adios2/CMakeFiles/adios2.dir/__/__/bindings/C/adios2/adios2_c_adios.cpp.o
+[ 40%] Building CXX object source/adios2/CMakeFiles/adios2.dir/__/__/bindings/C/adios2/adios2_c_glue.cpp.o
+[ 41%] Building CXX object source/adios2/CMakeFiles/adios2.dir/__/__/bindings/C/adios2/adios2_c_io.cpp.o
+[ 41%] Building CXX object source/adios2/CMakeFiles/adios2.dir/__/__/bindings/C/adios2/adios2_c_engine.cpp.o
+[ 42%] Building CXX object source/adios2/CMakeFiles/adios2.dir/__/__/bindings/C/adios2/adios2_c_variable.cpp.o
+[ 43%] Building CXX object source/adios2/CMakeFiles/adios2.dir/__/__/thirdparty/pugixml/pugixml/src/pugixml.cpp.o
+[ 43%] Linking CXX shared library ../../lib/libadios2.so
+[ 43%] Built target adios2
+Scanning dependencies of target localArray_write
+Scanning dependencies of target globalArray_write
+Scanning dependencies of target values_write
+Scanning dependencies of target bpls2
+Scanning dependencies of target joinedArray_write
+Scanning dependencies of target hello_bpWriterJeff
+[ 43%] Building CXX object examples/basics/globalArray/CMakeFiles/globalArray_write.dir/globalArray_write.cpp.o
+[ 45%] Building CXX object examples/basics/localArray/CMakeFiles/localArray_write.dir/localArray_write.cpp.o
+[ 45%] Building CXX object examples/hello/bpWriter/CMakeFiles/hello_bpWriterJeff.dir/helloBPWriterJeff.cpp.o
+[ 46%] Building CXX object examples/basics/values/CMakeFiles/values_write.dir/values_write.cpp.o
+[ 46%] Building CXX object examples/basics/joinedArray/CMakeFiles/joinedArray_write.dir/joinedArray_write.cpp.o
+[ 47%] Building CXX object source/utils/CMakeFiles/bpls2.dir/bpls2/main.cpp.o
+[ 48%] Building CXX object source/utils/CMakeFiles/bpls2.dir/bpls2/BPLS2.cpp.o
+[ 49%] Linking CXX executable ../../../bin/globalArray_write
+[ 50%] Linking CXX executable ../../../bin/joinedArray_write
+[ 50%] Linking CXX executable ../../../bin/hello_bpWriterJeff
+[ 50%] Linking CXX executable ../../../bin/localArray_write
+[ 51%] Linking CXX executable ../../../bin/values_write
+[ 51%] Built target globalArray_write
+Scanning dependencies of target hello_bpWriter
+[ 51%] Built target joinedArray_write
+Scanning dependencies of target hello_bpWriter_c
+[ 51%] Built target hello_bpWriterJeff
+[ 51%] Built target localArray_write
+Scanning dependencies of target hello_bpPutDeferred
+[ 51%] Built target values_write
+[ 51%] Building CXX object examples/hello/bpWriter/CMakeFiles/hello_bpWriter.dir/helloBPWriter.cpp.o
+[ 51%] Building CXX object source/utils/CMakeFiles/bpls2.dir/Utils.cpp.o
+[ 52%] Building C object examples/hello/bpWriter/CMakeFiles/hello_bpWriter_c.dir/helloBPWriter.c.o
+Scanning dependencies of target hello_bpReaderHeatMap2D
+[ 52%] Building CXX object examples/hello/bpWriter/CMakeFiles/hello_bpPutDeferred.dir/helloBPPutDeferred.cpp.o
+[ 52%] Linking C executable ../../../bin/hello_bpWriter_c
+[ 53%] Building CXX object examples/hello/bpReader/CMakeFiles/hello_bpReaderHeatMap2D.dir/helloBPReaderHeatMap2D.cpp.o
+[ 53%] Built target hello_bpWriter_c
+Scanning dependencies of target hello_bpReaderHeatMap3D
+[ 54%] Building CXX object examples/hello/bpReader/CMakeFiles/hello_bpReaderHeatMap3D.dir/helloBPReaderHeatMap3D.cpp.o
+Scanning dependencies of target hello_bpReader
+[ 55%] Linking CXX executable ../../bin/bpls2
+[ 55%] Building CXX object examples/hello/bpReader/CMakeFiles/hello_bpReader.dir/helloBPReader.cpp.o
+[ 55%] Built target bpls2
+Scanning dependencies of target hello_bpWriteStep
+[ 55%] Building CXX object examples/hello/bpTimeWriter/CMakeFiles/hello_bpWriteStep.dir/helloBPWriteStep.cpp.o
+[ 56%] Linking CXX executable ../../../bin/hello_bpWriter
+[ 56%] Linking CXX executable ../../../bin/hello_bpReaderHeatMap2D
+[ 57%] Linking CXX executable ../../../bin/hello_bpPutDeferred
+[ 57%] Built target hello_bpWriter
+Scanning dependencies of target hello_bpTimeWriter
+[ 57%] Linking CXX executable ../../../bin/hello_bpReaderHeatMap3D
+[ 58%] Building CXX object examples/hello/bpTimeWriter/CMakeFiles/hello_bpTimeWriter.dir/helloBPTimeWriter.cpp.o
+[ 58%] Built target hello_bpPutDeferred
+[ 58%] Built target hello_bpReaderHeatMap2D
+Scanning dependencies of target hello_bpFlushWriter
+[ 59%] Linking CXX executable ../../../bin/hello_bpReader
+Scanning dependencies of target hello_bpAttributeWriter
+[ 60%] Building CXX object examples/hello/bpFlushWriter/CMakeFiles/hello_bpFlushWriter.dir/helloBPFlushWriter.cpp.o
+[ 61%] Building CXX object examples/hello/bpAttributeWriter/CMakeFiles/hello_bpAttributeWriter.dir/helloBPAttributeWriter.cpp.o
+[ 61%] Built target hello_bpReaderHeatMap3D
+Scanning dependencies of target hello_Callback2
+[ 62%] Linking CXX executable ../../../bin/hello_bpWriteStep
+[ 62%] Building CXX object examples/hello/callback/CMakeFiles/hello_Callback2.dir/helloCallback2.cpp.o
+[ 62%] Built target hello_bpReader
+Scanning dependencies of target hello_Callback1
+[ 63%] Building CXX object examples/hello/callback/CMakeFiles/hello_Callback1.dir/helloCallback1.cpp.o
+[ 63%] Built target hello_bpWriteStep
+Scanning dependencies of target hello_adios1Writer
+[ 63%] Building CXX object examples/hello/adios1Writer/CMakeFiles/hello_adios1Writer.dir/helloADIOS1Writer.cpp.o
+[ 64%] Linking CXX executable ../../../bin/hello_bpTimeWriter
+[ 64%] Linking CXX executable ../../../bin/hello_bpAttributeWriter
+[ 65%] Linking CXX executable ../../../bin/hello_bpFlushWriter
+[ 66%] Linking CXX executable ../../../bin/hello_Callback2
+[ 66%] Built target hello_bpTimeWriter
+Scanning dependencies of target hello_datamanReader
+[ 67%] Linking CXX executable ../../../bin/hello_Callback1
+[ 68%] Building CXX object examples/hello/datamanReader/CMakeFiles/hello_datamanReader.dir/helloDataManReader.cpp.o
+[ 69%] Linking CXX executable ../../../bin/hello_adios1Writer
+[ 69%] Built target hello_bpFlushWriter
+[ 69%] Built target hello_bpAttributeWriter
+Scanning dependencies of target hello_datamanWriter
+Scanning dependencies of target hello_bpBZip2Wrapper
+[ 69%] Built target hello_Callback2
+Scanning dependencies of target heatTransfer_write_adios2
+[ 70%] Building CXX object examples/hello/bpBZip2Wrapper/CMakeFiles/hello_bpBZip2Wrapper.dir/helloBPBZip2Wrapper.cpp.o
+[ 70%] Building CXX object examples/hello/datamanWriter/CMakeFiles/hello_datamanWriter.dir/helloDataManWriter.cpp.o
+[ 70%] Built target hello_Callback1
+Scanning dependencies of target heatTransfer_read
+[ 71%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_adios2.dir/main.cpp.o
+[ 71%] Built target hello_adios1Writer
+Scanning dependencies of target heatTransfer_read_fileonly_adios2
+[ 72%] Building CXX object examples/heatTransfer/read/CMakeFiles/heatTransfer_read.dir/heatRead.cpp.o
+[ 73%] Building CXX object examples/heatTransfer/read_fileonly/CMakeFiles/heatTransfer_read_fileonly_adios2.dir/heatRead_adios2.cpp.o
+[ 74%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_adios2.dir/HeatTransfer.cpp.o
+[ 74%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_adios2.dir/Settings.cpp.o
+[ 75%] Building CXX object examples/heatTransfer/write/CMakeFiles/heatTransfer_write_adios2.dir/IO_adios2.cpp.o
+[ 76%] Linking CXX executable ../../../bin/hello_datamanReader
+[ 77%] Linking CXX executable ../../../bin/hello_datamanWriter
+[ 77%] Linking CXX executable ../../../bin/hello_bpBZip2Wrapper
+[ 77%] Building CXX object examples/heatTransfer/read/CMakeFiles/heatTransfer_read.dir/ReadSettings.cpp.o
+[ 77%] Built target hello_datamanReader
+Scanning dependencies of target examplePluginEngine_class
+[ 77%] Linking CXX executable ../../../bin/heatTransfer_read_fileonly_adios2
+[ 77%] Building CXX object examples/plugins/engine/CMakeFiles/examplePluginEngine_class.dir/examplePluginEngine_class.cpp.o
+[ 77%] Built target hello_datamanWriter
+[ 78%] Linking CXX executable ../../../bin/heatTransfer_read
+Scanning dependencies of target TestADIOSDefineVariable
+[ 78%] Built target hello_bpBZip2Wrapper
+[ 79%] Building CXX object examples/plugins/engine/CMakeFiles/examplePluginEngine_class.dir/ExampleEnginePlugin.cpp.o
+[ 79%] Built target heatTransfer_read_fileonly_adios2
+Scanning dependencies of target TestADIOSInterfaceWrite
+[ 80%] Building CXX object testing/adios2/interface/CMakeFiles/TestADIOSDefineVariable.dir/TestADIOSDefineVariable.cpp.o
+[ 80%] Built target heatTransfer_read
+Scanning dependencies of target TestADIOSDefineAttribute
+[ 80%] Linking CXX executable ../../../bin/heatTransfer_write_adios2
+[ 81%] Building CXX object testing/adios2/interface/CMakeFiles/TestADIOSInterfaceWrite.dir/TestADIOSInterfaceWrite.cpp.o
+[ 81%] Building CXX object testing/adios2/interface/CMakeFiles/TestADIOSDefineAttribute.dir/TestADIOSDefineAttribute.cpp.o
+[ 81%] Built target heatTransfer_write_adios2
+Scanning dependencies of target TestBPWriteProfilingJSON
+[ 82%] Building CXX object testing/adios2/engine/bp/CMakeFiles/TestBPWriteProfilingJSON.dir/TestBPWriteProfilingJSON.cpp.o
+Scanning dependencies of target TestBPWriteReadfstream
+[ 82%] Building CXX object testing/adios2/engine/bp/CMakeFiles/TestBPWriteReadfstream.dir/TestBPWriteReadfstream.cpp.o
+[ 83%] Linking CXX executable ../../../bin/examplePluginEngine_class
+[ 83%] Built target examplePluginEngine_class
+Scanning dependencies of target TestBPWriteReadstdio
+[ 84%] Building CXX object testing/adios2/engine/bp/CMakeFiles/TestBPWriteReadstdio.dir/TestBPWriteReadstdio.cpp.o
+[ 84%] Linking CXX executable ../../../bin/TestADIOSInterfaceWrite
+[ 84%] Linking CXX executable ../../../bin/TestADIOSDefineVariable
+[ 84%] Built target TestADIOSInterfaceWrite
+Scanning dependencies of target TestBPWriteReadADIOS2Scratch
+[ 84%] Built target TestADIOSDefineVariable
+Scanning dependencies of target TestBPWriteReadADIOS2
+[ 85%] Building CXX object testing/adios2/engine/bp/CMakeFiles/TestBPWriteReadADIOS2Scratch.dir/TestBPWriteReadADIOS2Scratch.cpp.o
+[ 86%] Linking CXX executable ../../../bin/TestADIOSDefineAttribute
+[ 86%] Building CXX object testing/adios2/engine/bp/CMakeFiles/TestBPWriteReadADIOS2.dir/TestBPWriteReadADIOS2.cpp.o
+[ 87%] Linking CXX executable ../../../../bin/TestBPWriteReadfstream
+[ 88%] Linking CXX executable ../../../../bin/TestBPWriteProfilingJSON
+[ 88%] Built target TestADIOSDefineAttribute
+Scanning dependencies of target TestBPWriteReadAttributes
+[ 88%] Built target TestBPWriteReadfstream
+Scanning dependencies of target TestBPWriteReadAsStreamADIOS2
+[ 88%] Built target TestBPWriteProfilingJSON
+Scanning dependencies of target TestBPWriteReadAttributesADIOS2
+[ 89%] Building CXX object testing/adios2/engine/bp/CMakeFiles/TestBPWriteReadAttributes.dir/TestBPWriteReadAttributes.cpp.o
+[ 89%] Linking CXX executable ../../../../bin/TestBPWriteReadstdio
+[ 90%] Building CXX object testing/adios2/engine/bp/CMakeFiles/TestBPWriteReadAsStreamADIOS2.dir/TestBPWriteReadAsStreamADIOS2.cpp.o
+[ 90%] Building CXX object testing/adios2/engine/bp/CMakeFiles/TestBPWriteReadAttributesADIOS2.dir/TestBPWriteReadAttributesADIOS2.cpp.o
+[ 90%] Built target TestBPWriteReadstdio
+Scanning dependencies of target TestBPWriteRead
+[ 90%] Building CXX object testing/adios2/engine/bp/CMakeFiles/TestBPWriteRead.dir/TestBPWriteRead.cpp.o
+[ 90%] Linking CXX executable ../../../../bin/TestBPWriteReadADIOS2Scratch
+[ 90%] Built target TestBPWriteReadADIOS2Scratch
+Scanning dependencies of target TestADIOS1WriteRead
+[ 90%] Building CXX object testing/adios2/engine/adios1/CMakeFiles/TestADIOS1WriteRead.dir/TestADIOS1WriteRead.cpp.o
+[ 91%] Linking CXX executable ../../../../bin/TestBPWriteReadADIOS2
+[ 91%] Built target TestBPWriteReadADIOS2
+Scanning dependencies of target TestCephWriteReadADIOS2
+[ 91%] Building CXX object testing/adios2/engine/ceph/CMakeFiles/TestCephWriteReadADIOS2.dir/TestCephWriteReadADIOS2.cpp.o
+[ 92%] Linking CXX executable ../../../../bin/TestBPWriteReadAttributes
+[ 93%] Linking CXX executable ../../../../bin/TestBPWriteReadAttributesADIOS2
+[ 93%] Built target TestBPWriteReadAttributes
+Scanning dependencies of target TestBPWriteTypes_c
+[ 93%] Linking CXX executable ../../../../bin/TestBPWriteReadAsStreamADIOS2
+[ 93%] Built target TestBPWriteReadAttributesADIOS2
+[ 94%] Linking CXX executable ../../../../bin/TestBPWriteRead
+Scanning dependencies of target TestXMLConfig
+[ 95%] Building CXX object testing/adios2/bindings/C/CMakeFiles/TestBPWriteTypes_c.dir/TestBPWriteTypes.cpp.o
+[ 95%] Building CXX object testing/adios2/xml/CMakeFiles/TestXMLConfig.dir/TestXMLConfig.cpp.o
+[ 95%] Built target TestBPWriteReadAsStreamADIOS2
+Scanning dependencies of target TestBZip2Wrapper
+[ 96%] Linking CXX executable ../../../../bin/TestADIOS1WriteRead
+[ 96%] Built target TestBPWriteRead
+[ 97%] Building CXX object testing/adios2/transform/CMakeFiles/TestBZip2Wrapper.dir/TestBZip2Wrapper.cpp.o
+[ 97%] Linking CXX executable ../../../../bin/TestBPWriteTypes_c
+[ 97%] Built target TestADIOS1WriteRead
+[ 97%] Built target TestBPWriteTypes_c
+[ 98%] Linking CXX executable ../../../../bin/TestCephWriteReadADIOS2
+[ 98%] Built target TestCephWriteReadADIOS2
+[ 99%] Linking CXX executable ../../../bin/TestXMLConfig
+[ 99%] Built target TestXMLConfig
+[100%] Linking CXX executable ../../../bin/TestBZip2Wrapper
+[100%] Built target TestBZip2Wrapper
+running ctest..
+UpdateCTestConfiguration  from :/src/adios2/build/DartConfiguration.tcl
+Parse Config file:/src/adios2/build/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/src/adios2/build/DartConfiguration.tcl
+Parse Config file:/src/adios2/build/DartConfiguration.tcl
+Test project /src/adios2/build
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 43
+    Start 43: BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8.jeff
+
+43: Test command: /usr/bin/mpiexec "-n" "2" "/src/adios2/build/bin/TestBPWriteReadADIOS2Scratch" "--gtest_filter=BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8"
+43: Test timeout computed to be: 1500
+43: Note: Google Test filter = BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8
+43: [==========] Running 1 test from 1 test case.
+43: [----------] Global test environment set-up.
+43: Note: Google Test filter = BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8
+43: [----------] 1 test from BPWriteReadTestADIOS2Scratch
+43: [ RUN      ] BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8
+43: [==========] Running 1 test from 1 test case.
+43: [----------] Global test environment set-up.
+43: [----------] 1 test from BPWriteReadTestADIOS2Scratch
+43: [ RUN      ] BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8
+43: [       OK ] BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8 (32 ms)
+43: [----------] 1 test from BPWriteReadTestADIOS2Scratch (33 ms total)
+43:
+43: [----------] Global test environment tear-down
+43: [==========] 1 test from 1 test case ran. (34 ms total)
+43: [       OK ] BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8 (34 ms)
+43: [----------] 1 test from BPWriteReadTestADIOS2Scratch (34 ms total)
+43:
+43: [----------] Global test environment tear-down
+43: [==========] 1 test from 1 test case ran. (34 ms total)
+43: [  PASSED  ] 1 test.
+43: [  PASSED  ] 1 test.
+1/2 Test #43: BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8.jeff ...   Passed    0.76 sec
+test 44
+    Start 44: BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8.jeff
+
+44: Test command: /usr/bin/mpiexec "-n" "2" "/src/adios2/build/bin/TestBPWriteReadADIOS2Scratch" "--gtest_filter=BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8"
+44: Test timeout computed to be: 1500
+44: Note: Google Test filter = BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8
+44: [==========] Running 0 tests from 0 test cases.
+44: [==========] 0 tests from 0 test cases ran. (0 ms total)
+44: [  PASSED  ] 0 tests.
+44: Note: Google Test filter = BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8
+44: [==========] Running 0 tests from 0 test cases.
+44: [==========] 0 tests from 0 test cases ran. (0 ms total)
+44: [  PASSED  ] 0 tests.
+2/2 Test #44: BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8.jeff ..........   Passed    0.26 sec
+
+The following tests passed:
+	BPWriteReadTestADIOS2Scratch.ADIOS2BPWriteRead1D8.jeff
+	BPWriteReadTest.ADIOS2BPWriteADIOS1Read1D8.jeff
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   1.34 sec
+sirius@a7abe61a96db:/src/adios2/build$
