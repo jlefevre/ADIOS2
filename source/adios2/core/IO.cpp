@@ -45,7 +45,7 @@
 
 #ifdef ADIOS2_HAVE_CEPH // external dependencies // jpl
 //#include "adios2/engine/ceph/CephReader.h"
-#include "adios2/engine/ceph/CephWriter.h"
+#include "adios2/engine/ceph/CephWriterFS.h"
 #endif
 
 namespace adios2
@@ -398,13 +398,13 @@ Engine &IO::Open(const std::string &name, const Mode mode, MPI_Comm mpiComm)
                                     "HDF5 library, can't use HDF5 engine\n");
 #endif
     }
-    else if (engineTypeLC == "ceph")  // jpl
+    else if (engineTypeLC == "cephfs")  // jpl
     {
-#ifdef ADIOS2_HAVE_CEPH
+#ifdef ADIOS2_HAVE_CEPHFS
         //~ if (mode == Mode::Read)
             //~ engine = std::make_shared<HDF5ReaderP>(*this, name, mode, mpiComm);
         //~ else
-            engine = std::make_shared<CephWriter>(*this, name, mode, mpiComm);
+            engine = std::make_shared<CephWriterFS>(*this, name, mode, mpiComm);
 #endif
     }
     else if (engineTypeLC == "pluginengine")

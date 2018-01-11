@@ -2,14 +2,14 @@
  * Distributed under the OSI-approved Apache License, Version 2.0.  See
  * accompanying file Copyright.txt for details.
  *
- * CephWriter.h
+ * CephWriterFS.h
  *
  *  Created on: Dec 16, 2017
  *      Author: jpl
  */
 
-#ifndef ADIOS2_ENGINE_CEPH_CEPHWRITER_H_
-#define ADIOS2_ENGINE_CEPH_CEPHWRITER_H_
+#ifndef ADIOS2_ENGINE_CEPH_CEPHWRITERFS_H_
+#define ADIOS2_ENGINE_CEPH_CEPHWRITERFS_H_
 
 #include "adios2/ADIOSConfig.h"
 #include "adios2/core/Engine.h"
@@ -20,20 +20,20 @@
 namespace adios2
 {
 
-class CephWriter : public Engine
+class CephWriterFS : public Engine
 {
 
 public:
     /**
-     * Constructor for file Writer in Ceph
+     * Constructor for Writer for Ceph File System (POSIX) interface
      * @param name unique name given to the engine
      * @param openMode w (supported), r, a from OpenMode in ADIOSTypes.h
      * @param mpiComm MPI communicator
      */
-    CephWriter(IO &io, const std::string &name, const Mode mode,
+    CephWriterFS(IO &io, const std::string &name, const Mode mode,
                  MPI_Comm mpiComm);
 
-    ~CephWriter();
+    ~CephWriterFS();
 
     StepStatus BeginStep(StepMode mode, const float timeoutSeconds = 0.f) final;
     void PerformPuts() final;
@@ -87,4 +87,4 @@ private:
 
 } // end namespace adios2
 
-#endif /* ADIOS2_ENGINE_CEPH_CEPHWRITER_H_ */
+#endif /* ADIOS2_ENGINE_CEPH_CEPHWRITERFS_H_ */

@@ -2,14 +2,14 @@
  * Distributed under the OSI-approved Apache License, Version 2.0.  See
  * accompanying file Copyright.txt for details.
  *
- * CephWriter.cpp
+ * CephWriterFS.cpp
  *
  *  Created on: Dec 19, 2017
  *      Author: jpl
  */
 
-#include "CephWriter.h"
-#include "CephWriter.tcc"
+#include "CephWriterFS.h"
+#include "CephWriterFS.tcc"
 
 #include <iostream>
 
@@ -28,27 +28,27 @@
 namespace adios2
 {
 
-CephWriter::CephWriter(IO &io, const std::string &name, const Mode mode,
+CephWriterFS::CephWriterFS(IO &io, const std::string &name, const Mode mode,
                            MPI_Comm mpiComm)
-: Engine("CephWriter", io, name, mode, mpiComm),
+: Engine("CephWriterFS", io, name, mode, mpiComm),
   m_BP3Serializer(mpiComm, m_DebugMode),
   m_FileDataManager(mpiComm, m_DebugMode),
   m_FileMetadataManager(mpiComm, m_DebugMode)
 {
-    m_EndMessage = " in call to IO Open CephWriter " + m_Name + "\n";
+    m_EndMessage = " in call to IO Open CephWriterFS " + m_Name + "\n";
     Init();
 }
 
-CephWriter::~CephWriter() = default;
+CephWriterFS::~CephWriterFS() = default;
 
-StepStatus CephWriter::BeginStep(StepMode mode, const float timeoutSeconds)
+StepStatus CephWriterFS::BeginStep(StepMode mode, const float timeoutSeconds)
 {
     m_BP3Serializer.m_DeferredVariables.clear();
     m_BP3Serializer.m_DeferredVariablesDataSize = 0;
     return StepStatus::OK;
 }
 
-void CephWriter::PerformPuts()
+void CephWriterFS::PerformPuts()
 {
     m_BP3Serializer.ResizeBuffer(m_BP3Serializer.m_DeferredVariablesDataSize,
                                  "in call to PerformPuts");
@@ -61,7 +61,7 @@ void CephWriter::PerformPuts()
     m_BP3Serializer.m_DeferredVariables.clear();
 }
 
-void CephWriter::EndStep()
+void CephWriterFS::EndStep()
 {
     if (m_BP3Serializer.m_DeferredVariables.size() > 0)
     {
@@ -83,7 +83,7 @@ void CephWriter::EndStep()
     }
 }
 
-void CephWriter::Close(const int transportIndex)
+void CephWriterFS::Close(const int transportIndex)
 {
     if (m_BP3Serializer.m_DeferredVariables.size() > 0)
     {
@@ -114,7 +114,7 @@ void CephWriter::Close(const int transportIndex)
 
 // PRIVATE FUNCTIONS
 // PRIVATE
-void CephWriter::Init()
+void CephWriterFS::Init()
 {
     InitParameters();
     InitTransports();
@@ -122,24 +122,24 @@ void CephWriter::Init()
 }
 
 #define declare_type(T)                                                        \
-    void CephWriter::DoPutSync(Variable<T> &variable, const T *values)       \
+    void CephWriterFS::DoPutSync(Variable<T> &variable, const T *values)       \
     {                                                                          \
         PutSyncCommon(variable, values);                                       \
     }                                                                          \
-    void CephWriter::DoPutDeferred(Variable<T> &variable, const T *values)   \
+    void CephWriterFS::DoPutDeferred(Variable<T> &variable, const T *values)   \
     {                                                                          \
         PutDeferredCommon(variable, values);                                   \
     }                                                                          \
-    void CephWriter::DoPutDeferred(Variable<T> &, const T &value) {}
+    void CephWriterFS::DoPutDeferred(Variable<T> &, const T &value) {}
 ADIOS2_FOREACH_TYPE_1ARG(declare_type)
 #undef declare_type
 
-void CephWriter::InitParameters()
+void CephWriterFS::InitParameters()
 {
     m_BP3Serializer.InitParameters(m_IO.m_Parameters);
 }
 
-void CephWriter::InitTransports()
+void CephWriterFS::InitTransports()
 {
     // TODO need to add support for aggregators here later
     if (m_IO.m_TransportsParameters.empty())
@@ -163,12 +163,12 @@ void CephWriter::InitTransports()
                                 m_BP3Serializer.m_Profiler.IsActive);
 }
 
-void CephWriter::InitBPBuffer()
+void CephWriterFS::InitBPBuffer()
 {
     if (m_OpenMode == Mode::Append)
     {
         throw std::invalid_argument(
-            "ADIOS2:CephWriter: OpenMode Append hasn't been implemented, yet");
+            "ADIOS2:CephWriterFS: OpenMode Append hasn't been implemented, yet");
         // TODO: Get last pg timestep and update timestep counter in
     }
     else
@@ -178,7 +178,7 @@ void CephWriter::InitBPBuffer()
     }
 }
 
-void CephWriter::WriteProfilingJSONFile()
+void CephWriterFS::WriteProfilingJSONFile()
 {
     auto transportTypes = m_FileDataManager.GetTransportsTypes();
     auto transportProfilers = m_FileDataManager.GetTransportsProfilers();
@@ -201,7 +201,7 @@ void CephWriter::WriteProfilingJSONFile()
     }
 }
 
-void CephWriter::WriteCollectiveMetadataFile()
+void CephWriterFS::WriteCollectiveMetadataFile()
 {
     m_BP3Serializer.AggregateCollectiveMetadata();
     if (m_BP3Serializer.m_RankMPI == 0)
