@@ -43,6 +43,10 @@ const cephtype_t CEPH_INT = 1;
 const cephtype_t CEPH_FLOAT = 2;
 const cephtype_t CEPH_DOUBLE = 3;
 
+
+//~ const unsigned int CEPH_CONF_OBJ_SZ = 10;  // MB
+//~ typedef struct _ObjStream *ObjStream;
+
 class CephCommon
 {
 

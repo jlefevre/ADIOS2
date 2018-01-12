@@ -18,6 +18,12 @@
 
 #include "adios2/ADIOSMPI.h"
 
+#include <rados/librados.h>
+#include <rados/librados.hpp>
+#include <std::string>
+#include <std::list>
+
+
 namespace adios2
 {
 namespace interop
