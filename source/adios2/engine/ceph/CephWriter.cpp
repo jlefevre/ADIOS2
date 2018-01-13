@@ -18,6 +18,7 @@
 #include "adios2/core/IO.h"
 #include "adios2/helper/adiosFunctions.h" //CheckIndexRange
 #include "adios2/toolkit/transport/file/FileFStream.h"
+#include "adios2/toolkit/transport/ceph/CephObj.h"
 #include "adios2/engine/bp/BPFileWriter.h"
 #include "adios2/engine/bp/BPFileWriter.tcc"
 

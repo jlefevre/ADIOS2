@@ -4,12 +4,12 @@
  *
  * FileDescriptor.h wrapper of POSIX library functions for file I/O
  *
- *  Created on: Oct 6, 2016
- *      Author: William F Godoy godoywf@ornl.gov
+ *  Created on: 
+ *      Author: 
  */
 
-#ifndef ADIOS2_TOOLKIT_TRANSPORT_FILE_FILEDESCRIPTOR_H_
-#define ADIOS2_TOOLKIT_TRANSPORT_FILE_FILEDESCRIPTOR_H_
+#ifndef ADIOS2_TOOLKIT_TRANSPORT_CEPH_FILEDESCRIPTOR_H_
+#define ADIOS2_TOOLKIT_TRANSPORT_CEPH_FILEDESCRIPTOR_H_
 
 #include "adios2/ADIOSConfig.h"
 #include "adios2/toolkit/transport/Transport.h"
@@ -20,13 +20,13 @@ namespace transport
 {
 
 /** File descriptor transport using the POSIX IO library */
-class FilePOSIX : public Transport
+class Ceph : public Transport
 {
 
 public:
-    FilePOSIX(MPI_Comm mpiComm, const bool debugMode);
+    Ceph(MPI_Comm mpiComm, const bool debugMode);
 
-    ~FilePOSIX();
+    ~Ceph();
 
     void Open(const std::string &name, const Mode openMode) final;
 
@@ -55,4 +55,4 @@ private:
 } // end namespace transport
 } // end namespace adios2
 
-#endif /* ADIOS2_TRANSPORT_FILE_FILEDESCRIPTOR_H_ */
+#endif /* ADIOS2_TRANSPORT_CEPH_FILEDESCRIPTOR_H_ */

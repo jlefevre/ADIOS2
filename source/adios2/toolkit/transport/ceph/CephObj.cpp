@@ -4,10 +4,10 @@
  *
  * FileDescriptor.cpp file I/O using POSIX I/O library
  *
- *  Created on: Oct 6, 2016
- *      Author: William F Godoy godoywf@ornl.gov
+ *  Created on: 
+ *      Author: 
  */
-#include "FilePOSIX.h"
+#include "CephObj.h"
 
 #include <fcntl.h>     // open
 #include <stddef.h>    // write output
@@ -24,12 +24,12 @@ namespace adios2
 namespace transport
 {
 
-FilePOSIX::FilePOSIX(MPI_Comm mpiComm, const bool debugMode)
-: Transport("File", "POSIX", mpiComm, debugMode)
+Ceph::Ceph(MPI_Comm mpiComm, const bool debugMode)
+: Transport("CephObj", "cephlibrados", mpiComm, debugMode)
 {
 }
 
-FilePOSIX::~FilePOSIX()
+Ceph::~Ceph()
 {
     if (m_IsOpen)
     {
@@ -37,7 +37,7 @@ FilePOSIX::~FilePOSIX()
     }
 }
 
-void FilePOSIX::Open(const std::string &name, const Mode openMode)
+void Ceph::Open(const std::string &name, const Mode openMode)
 {
     m_Name = name;
     CheckName();
@@ -75,9 +75,15 @@ void FilePOSIX::Open(const std::string &name, const Mode openMode)
               ", check permissions or path existence, in call to POSIX open");
 
     m_IsOpen = true;
+
+    if (m_DebugMode)
+    {
+        //throw std::ios_base::failure("Ceph::Open: " + m_Name + " transport type " + m_Type = "\n");
+        //std::invalid_argument("FilePOSIXCeph::Open: " + m_Name + " transport type " + m_Type = "\n");
+    }
 }
 
-void FilePOSIX::Write(const char *buffer, size_t size, size_t start)
+void Ceph::Write(const char *buffer, size_t size, size_t start)
 {
     auto lf_Write = [&](const char *buffer, size_t size) {
 
@@ -131,9 +137,15 @@ void FilePOSIX::Write(const char *buffer, size_t size, size_t start)
     {
         lf_Write(buffer, size);
     }
+
+    if (m_DebugMode)
+    {
+        //throw std::ios_base::failure("Ceph::Write: " + m_Name + " transport type " + m_Type = "\n");
+        //std::invalid_argument("FilePOSIXCeph::Write: " + m_Name + " transport type " + m_Type = "\n");
+    }
 }
 
-void FilePOSIX::Read(char *buffer, size_t size, size_t start)
+void Ceph::Read(char *buffer, size_t size, size_t start)
 {
     auto lf_Read = [&](char *buffer, size_t size) {
 
@@ -190,7 +202,7 @@ void FilePOSIX::Read(char *buffer, size_t size, size_t start)
     }
 }
 
-size_t FilePOSIX::GetSize()
+size_t Ceph::GetSize()
 {
     struct stat fileStat;
     if (fstat(m_FileDescriptor, &fileStat) == -1)
@@ -201,9 +213,9 @@ size_t FilePOSIX::GetSize()
     return static_cast<size_t>(fileStat.st_size);
 }
 
-void FilePOSIX::Flush() {}
+void Ceph::Flush() {}
 
-void FilePOSIX::Close()
+void Ceph::Close()
 {
     ProfilerStart("close");
     const int status = close(m_FileDescriptor);
@@ -218,7 +230,7 @@ void FilePOSIX::Close()
     m_IsOpen = false;
 }
 
-void FilePOSIX::CheckFile(const std::string hint) const
+void Ceph::CheckFile(const std::string hint) const
 {
     if (m_FileDescriptor == -1)
     {

@@ -162,6 +162,7 @@ if(ADIOS2_HAVE_CEPH) # jpl
 	target_sources(adios2 PRIVATE
 		engine/ceph/CephWriterFS.cpp engine/ceph/CephWriterFS.tcc
 		engine/ceph/CephWriter.cpp engine/ceph/CephWriter.tcc
+		toolkit/transport/ceph/CephObj.cpp
 		#toolkit/interop/ceph/CephCommon.cpp 
 		#toolkit/interop/ceph/CephCommon.tcc
   	)
