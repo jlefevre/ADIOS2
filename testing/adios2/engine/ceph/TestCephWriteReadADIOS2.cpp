@@ -89,8 +89,8 @@ TEST_F(CephWriteReadTestADIOS2, ADIOS2CephWriteRead1D8)
 
         // from: engine/bp/TestBPWriteRead.cpp: TEST_F(BPWriteReadTest, ADIOS2BPWriteADIOS1Read1D8)
         // Create the BP Engine
-       // io.SetEngine("BPFile");
-        //io.AddTransport("file");
+        io.SetEngine("ceph");
+        io.AddTransport("file");
 
         // QUESTION: It seems that BPFilterWriter cannot overwrite existing
         // files
@@ -98,7 +98,7 @@ TEST_F(CephWriteReadTestADIOS2, ADIOS2CephWriteRead1D8)
         // the cache in
         // ${adios2Build}/testing/adios2/engine/bp/ADIOS2BPWriteADIOS1Read1D8.bp.dir,
         // then it works
-        adios2::Engine &bpWriter = io.Open(fname, adios2::Mode::Write);
+        adios2::Engine &CephWriter = io.Open(fname, adios2::Mode::Write);
 
         for (size_t step = 0; step < NSteps; ++step)
         {
@@ -138,26 +138,26 @@ TEST_F(CephWriteReadTestADIOS2, ADIOS2CephWriteRead1D8)
             // Write each one
             // fill in the variable with values from starting index to
             // starting index + count
-            bpWriter.BeginStep();
+            CephWriter.BeginStep();
 
-            bpWriter.PutDeferred(var_iString, currentTestData.S1);
-            bpWriter.PutDeferred(var_i8, currentTestData.I8.data());
-            bpWriter.PutDeferred(var_i16, currentTestData.I16.data());
-            bpWriter.PutDeferred(var_i32, currentTestData.I32.data());
-            bpWriter.PutDeferred(var_i64, currentTestData.I64.data());
-            bpWriter.PutDeferred(var_u8, currentTestData.U8.data());
-            bpWriter.PutDeferred(var_u16, currentTestData.U16.data());
-            bpWriter.PutDeferred(var_u32, currentTestData.U32.data());
-            bpWriter.PutDeferred(var_u64, currentTestData.U64.data());
-            bpWriter.PutDeferred(var_r32, currentTestData.R32.data());
-            bpWriter.PutDeferred(var_r64, currentTestData.R64.data());
-            bpWriter.PerformPuts();
+            CephWriter.PutDeferred(var_iString, currentTestData.S1);
+            CephWriter.PutDeferred(var_i8, currentTestData.I8.data());
+            CephWriter.PutDeferred(var_i16, currentTestData.I16.data());
+            CephWriter.PutDeferred(var_i32, currentTestData.I32.data());
+            CephWriter.PutDeferred(var_i64, currentTestData.I64.data());
+            CephWriter.PutDeferred(var_u8, currentTestData.U8.data());
+            CephWriter.PutDeferred(var_u16, currentTestData.U16.data());
+            CephWriter.PutDeferred(var_u32, currentTestData.U32.data());
+            CephWriter.PutDeferred(var_u64, currentTestData.U64.data());
+            CephWriter.PutDeferred(var_r32, currentTestData.R32.data());
+            CephWriter.PutDeferred(var_r64, currentTestData.R64.data());
+            CephWriter.PerformPuts();
 
-            bpWriter.EndStep();
+            CephWriter.EndStep();
         }
 
         // Close the file
-        bpWriter.Close();
+        CephWriter.Close();
     }
 
     {

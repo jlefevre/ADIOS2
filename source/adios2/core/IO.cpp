@@ -44,7 +44,6 @@
 #endif
 
 #ifdef ADIOS2_HAVE_CEPH // external dependencies // jpl
-//#include "adios2/engine/ceph/CephReader.h"
 #include "adios2/engine/ceph/CephWriterFS.h"
 #include "adios2/engine/ceph/CephWriter.h"
 #endif
