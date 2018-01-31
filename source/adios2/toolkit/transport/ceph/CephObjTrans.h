@@ -8,9 +8,11 @@
  *      Author: 
  */
 
-#ifndef ADIOS2_TOOLKIT_TRANSPORT_CEPH_FILEDESCRIPTOR_H_
-#define ADIOS2_TOOLKIT_TRANSPORT_CEPH_FILEDESCRIPTOR_H_
+#ifndef ADIOS2_TOOLKIT_TRANSPORT_CEPHOBJTRANS_H_
+#define ADIOS2_TOOLKIT_TRANSPORT_CEPHOBJTRANS_H_
 
+#include <rados/librados.hpp>
+#include <rados/rados_types.hpp>
 #include "adios2/ADIOSConfig.h"
 #include "adios2/toolkit/transport/Transport.h"
 
@@ -19,14 +21,13 @@ namespace adios2
 namespace transport
 {
 
-/** File descriptor transport using the POSIX IO library */
-class Ceph : public Transport
+class CephObjTrans : public Transport
 {
 
 public:
-    Ceph(MPI_Comm mpiComm, const bool debugMode);
+    CephObjTrans(MPI_Comm mpiComm, const bool debugMode);
 
-    ~Ceph();
+    ~CephObjTrans();
 
     void Open(const std::string &name, const Mode openMode) final;
 
@@ -38,21 +39,28 @@ public:
 
     /** Does nothing, each write is supposed to flush */
     void Flush() final;
-
     void Close() final;
+
 
 private:
     /** POSIX file handle returned by Open */
     int m_FileDescriptor = -1;
-
-    /**
-     * Check if m_FileDescriptor is -1 after an operation
-     * @param hint exception message
-     */
     void CheckFile(const std::string hint) const;
+
+    std::string m_oname =  "";
+    bool ObjExists();
+    librados::Rados m_rcluster;
+    librados::IoCtx m_io_ctx_storage;
+    librados::IoCtx m_io_ctx_archive;
+//rados.ioctx_create(pool_name, io_ctx);
+//librados::IoCtx io_ctx;
+
+    const std::string m_rcluster_name = "ceph";
+    const std::string m_user_name = "client.admin";
+
 };
 
 } // end namespace transport
 } // end namespace adios2
 
-#endif /* ADIOS2_TRANSPORT_CEPH_FILEDESCRIPTOR_H_ */
+#endif /* ADIOS2_TRANSPORT_CEPHOBJTRANS_H_ */

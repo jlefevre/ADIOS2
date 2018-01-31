@@ -7,7 +7,11 @@
  *  Created on: 
  *      Author: 
  */
-#include "CephObj.h"
+#include "CephObjTrans.h"
+#include <rados/librados.hpp>
+#include <rados/rados_types.hpp>
+#include <iostream>
+#include <string>
 
 #include <fcntl.h>     // open
 #include <stddef.h>    // write output
@@ -24,12 +28,60 @@ namespace adios2
 namespace transport
 {
 
-Ceph::Ceph(MPI_Comm mpiComm, const bool debugMode)
-: Transport("CephObj", "cephlibrados", mpiComm, debugMode)
+CephObjTrans::CephObjTrans(MPI_Comm mpiComm, const bool debugMode)
+: Transport("CephObjTrans", "cephlibrados", mpiComm, debugMode)
 {
+    
+    // taken from Ken: https://github.com/kiizawa/siriusdev/blob/master/sample.cpp
+    // need to get cluster handle, storage tier pool handle, archive tier pool handle here
+    int ret = 0;
+    uint64_t flags;
+
+    /* Initialize the cluster handle with the "ceph" cluster name and "client.admin" user */
+    ret = m_rcluster.init2(m_user_name.c_str(), m_rcluster_name.c_str(), flags);
+    if (ret < 0) 
+    {
+         throw std::ios_base::failure("Transport::Ceph Couldn't initialize the cluster handle! error= "  + std::to_string(ret) + "\n");
+    }
+    
+      /* Read a Ceph configuration file to configure the cluster handle. */
+    ret = m_rcluster.conf_read_file("/share/ceph.conf");
+    if (ret < 0) 
+    {
+        throw std::ios_base::failure("Transport::Ceph Couldn't read the Ceph configuration file! error= "  + std::to_string(ret) + "\n");
+    }
+        
+      /* Connect to the cluster */
+    ret = m_rcluster.connect();
+    if (ret < 0) 
+    {
+        throw std::ios_base::failure("Transport::Ceph Couldn't connect to cluster! error= "  + std::to_string(ret) + "\n");
+    }
+
+     /* Set up the storage and archive pools for tieiring. */
+    ret = m_rcluster.ioctx_create("storage_pool", m_io_ctx_storage);
+    if (ret < 0)
+    {
+        throw std::ios_base::failure("Transport::Ceph Couldn't set up ioctx! error= "  + std::to_string(ret) + "\n");
+    }
+
+    ret = m_rcluster.ioctx_create("archive_pool", m_io_ctx_archive);
+    if (ret < 0)
+   {
+        throw std::ios_base::failure("Transport::Ceph Couldn't set up ioctx! error= "  + std::to_string(ret) + "\n");
+    }
+      
 }
 
-Ceph::~Ceph()
+// todo:
+// dont need file handle.  need to pass in oid not start offset.
+// need write(*buf, size, oid)
+// need chekcsize(oid)
+// need check if exists(oid) : globally fatal if collision.
+// skip append mode for now.
+
+
+CephObjTrans::~CephObjTrans()
 {
     if (m_IsOpen)
     {
@@ -37,34 +89,34 @@ Ceph::~Ceph()
     }
 }
 
-void Ceph::Open(const std::string &name, const Mode openMode)
+void CephObjTrans::Open(const std::string &name, const Mode openMode)
 {
     m_Name = name;
-    CheckName();
+    m_oname= name;
+    // CheckName();
     m_OpenMode = openMode;
 
     switch (m_OpenMode)
     {
 
     case (Mode::Write):
-        ProfilerStart("open");
-        MkDir(m_Name);
-        m_FileDescriptor =
-            open(m_Name.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0777);
-        ProfilerStop("open");
+        // check if obj exists, fatal error 
+        // m_FileDescriptor = open(m_Name.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0777);
+        if (ObjExists()) 
+        {
+             throw std::ios_base::failure("ERROR: Object exists.  oname=" + m_oname);
+        }
         break;
 
     case (Mode::Append):
-        ProfilerStart("open");
-        m_FileDescriptor = open(m_Name.c_str(), O_RDWR);
-        ProfilerStop("open");
+        // todo: append to an existing object.
+        // 1. check if obj exists
+        // 2. check obj size.
+        // 3. check objector params
         break;
 
     case (Mode::Read):
-        ProfilerStart("open");
-        m_FileDescriptor = open(m_Name.c_str(), O_RDONLY);
-        ProfilerStop("open");
-        break;
+    break;
 
     default:
         CheckFile("unknown open mode for file " + m_Name +
@@ -75,15 +127,23 @@ void Ceph::Open(const std::string &name, const Mode openMode)
               ", check permissions or path existence, in call to POSIX open");
 
     m_IsOpen = true;
-
-    if (m_DebugMode)
-    {
-        //throw std::ios_base::failure("Ceph::Open: " + m_Name + " transport type " + m_Type = "\n");
-        //std::invalid_argument("FilePOSIXCeph::Open: " + m_Name + " transport type " + m_Type = "\n");
-    }
 }
 
-void Ceph::Write(const char *buffer, size_t size, size_t start)
+/* test if oid already exists in the current ceph cluster */
+bool CephObjTrans::ObjExists() 
+{    
+    // http://docs.ceph.com/docs/master/rados/api/librados/#c.rados_ioctx_    
+    // librados::IoCtx io_ctx_storage;    
+    
+    uint64_t psize;
+    std::time_t pmtime;
+    //rados_ioctx_t io;  
+    return ( m_io_ctx_storage.stat(m_oname, &psize, &pmtime) == 0) ? true : false;
+    
+    //return (rados_stat(io, m_oname.c_str(), &psize, &pmtime) == 0) ? true : false;
+}
+
+void CephObjTrans::Write(const char *buffer, size_t size, size_t start)
 {
     auto lf_Write = [&](const char *buffer, size_t size) {
 
@@ -137,15 +197,9 @@ void Ceph::Write(const char *buffer, size_t size, size_t start)
     {
         lf_Write(buffer, size);
     }
-
-    if (m_DebugMode)
-    {
-        //throw std::ios_base::failure("Ceph::Write: " + m_Name + " transport type " + m_Type = "\n");
-        //std::invalid_argument("FilePOSIXCeph::Write: " + m_Name + " transport type " + m_Type = "\n");
-    }
 }
 
-void Ceph::Read(char *buffer, size_t size, size_t start)
+void CephObjTrans::Read(char *buffer, size_t size, size_t start)
 {
     auto lf_Read = [&](char *buffer, size_t size) {
 
@@ -202,7 +256,7 @@ void Ceph::Read(char *buffer, size_t size, size_t start)
     }
 }
 
-size_t Ceph::GetSize()
+size_t CephObjTrans::GetSize()
 {
     struct stat fileStat;
     if (fstat(m_FileDescriptor, &fileStat) == -1)
@@ -213,9 +267,9 @@ size_t Ceph::GetSize()
     return static_cast<size_t>(fileStat.st_size);
 }
 
-void Ceph::Flush() {}
+void CephObjTrans::Flush() {}
 
-void Ceph::Close()
+void CephObjTrans::Close()
 {
     ProfilerStart("close");
     const int status = close(m_FileDescriptor);
@@ -230,13 +284,14 @@ void Ceph::Close()
     m_IsOpen = false;
 }
 
-void Ceph::CheckFile(const std::string hint) const
+void CephObjTrans::CheckFile(const std::string hint) const
 {
     if (m_FileDescriptor == -1)
     {
         throw std::ios_base::failure("ERROR: " + hint + "\n");
     }
 }
+
 
 } // end namespace transport
 } // end namespace adios2

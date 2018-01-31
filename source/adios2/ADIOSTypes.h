@@ -89,7 +89,8 @@ enum class TransportType
 {
     File,
     WAN,
-    CephObj
+    CephObjTrans,
+    CephFS
 };
 
 /** Currently available engines, just for info purposes */
@@ -104,7 +105,8 @@ enum class IOEngine
     ADIOS1Reader,
     DataManWriter,
     DataManReader,
-    CephWriter  // jpl
+    CephWriter,       // jpl
+    CephWriterFS 
 };
 
 enum class ReadMode
